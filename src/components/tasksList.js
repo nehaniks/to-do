@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import Task from "./task";
+
 // Functional component to fetch and display all tasks
 export default function TasksList() {
   const [tasks, setTasks] = useState([]);
@@ -32,7 +34,8 @@ export default function TasksList() {
       <h2>Tasks List</h2>
       {/* Map through tasks to display each task */}
       {tasks.map((task) => {
-        return <h6 key={task.id}>{task.title}</h6>;
+        // Pass task data to child component using props
+        return <Task key={task.id} task={task} />;
       })}
     </div>
   );
