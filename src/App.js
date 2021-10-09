@@ -1,9 +1,21 @@
 import './App.css';
 
+import Typography from "@mui/material/Typography";
+
 function App() {
   return (
     <div className="App">
-      <h1>To Do App</h1>
+      <Typography
+          sx={{
+            mt: 4,
+            p: 2,
+          }}
+          color= "primary"
+          variant="h3"
+          component="div"
+        >
+          To-Do App
+        </Typography>
     </div>
   );
 }
