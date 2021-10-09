@@ -1,5 +1,7 @@
 import './App.css';
 
+import TasksList from './components/tasksList';
+
 import Typography from "@mui/material/Typography";
 
 function App() {
@@ -16,6 +18,9 @@ function App() {
         >
           To-Do App
         </Typography>
+
+        {/* Tasks List Component to retrieve and display all tasks list from data/db.json */}
+        <TasksList />
     </div>
   );
 }
