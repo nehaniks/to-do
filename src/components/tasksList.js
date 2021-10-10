@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 
 import Task from "./task";
 
+// Material UI component
+import CircularProgress from '@mui/material/CircularProgress';
+
 // Functional component to fetch and display all tasks
 export default function TasksList() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Asynchronous function to fetch db.json data
   const renderTasks = async () => {
@@ -20,8 +24,14 @@ export default function TasksList() {
         }
         throw res;
       })
-      .then((data) => setTasks(data)) // Set state hook to json data
-      .catch((error) => console.log(error)); // Catch error only fetch failure
+      .then((data) => {
+        setTasks(data);
+        setLoading(false);
+      }) // Set state hook to json data
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      }); // Catch error only fetch failure
   };
 
   // Effect hook to make fetch request only once by keeping dependency array empty
@@ -31,11 +41,13 @@ export default function TasksList() {
 
   return (
     <div>
+      {loading && <CircularProgress />}
       {/* Map through tasks to display each task */}
-      {tasks && tasks.map((task) => {
-        // Pass task data to child component using props
-        return <Task key={task.id} task={task} renderTasks={renderTasks} />;
-      })}
+      {tasks &&
+        tasks.map((task) => {
+          // Pass task data to child component using props
+          return <Task key={task.id} task={task} renderTasks={renderTasks} />;
+        })}
     </div>
   );
 }
