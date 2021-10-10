@@ -16,24 +16,31 @@ import Collapse from "@mui/material/Collapse";
 
 // Functional component to display each task
 export default function Task(props) {
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState(props.task.completed);
   const [view, setView] = useState(false);
 
   // server fetch uri
   let uri = "http://localhost:3004/todos";
 
-  const handleCompleted = () => {
+  const handleCompleted = async () => {
     // Toggle task as completed
     setComplete(!complete);
 
-
+    // Update Task to mark as completed
+    await fetch(`${uri}/${props.task.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...props.task, completed: !props.task.completed }), // Toggle task completed or not
+    }).catch((error) => console.log(error)); // Catch error only fetch failure
+    props.renderTasks();
   };
 
   const handleDelete = async () => {
     // Delete Task
-    await fetch(`${uri}/${props.task.id}`,{
-        method: "DELETE"
-    })
+    await fetch(`${uri}/${props.task.id}`, {
+      method: "DELETE",
+    }).catch((error) => console.log(error)); // Catch error only fetch failure
+    props.renderTasks();
   };
 
   return (
@@ -63,10 +70,8 @@ export default function Task(props) {
 
         {/* Task Title and Description (only first 100 characters) */}
         <ListItemText
-
           // Toggle task as completed
           onClick={handleCompleted}
-
           // Strikethrough text if task is completed
           style={{
             textDecoration: props.task.completed ? "line-through" : "none",

@@ -35,7 +35,7 @@ export default function TasksList() {
       {/* Map through tasks to display each task */}
       {tasks.map((task) => {
         // Pass task data to child component using props
-        return <Task key={task.id} task={task} />;
+        return <Task key={task.id} task={task} renderTasks={renderTasks} />;
       })}
     </div>
   );
