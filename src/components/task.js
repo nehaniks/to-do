@@ -40,7 +40,7 @@ export default function Task(props) {
   const [view, setView] = useState(false);
 
   // server fetch uri
-  let uri = "http://localhost:3004/todos";
+  let uri = "http://localhost:3000/todos";
 
   const handleCompleted = async () => {
     // Toggle task as completed

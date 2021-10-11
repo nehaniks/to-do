@@ -52,28 +52,27 @@ function App() {
     setTaskTitle("");
     setTaskDesc("");
 
-    // Refresh tasks list
-    doRefresh(refresh+1);
+    // Refresh tasks list    
+    doRefresh(refresh + 1);
+    console.log(taskId);
   };
 
   // Add new task to db
   const handleAdd = async () => {
-    console.log(taskId)
-    
     // Close add new task form
     setOpen(false);
 
     // server fetch uri
-    let uri = "http://localhost:3004/todos";
+    let uri = "http://localhost:3000/todos";
 
     await fetch(`${uri}/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        "id": taskId,
-        "title": taskTitle,
-        "description": taskDesc,
-        "completed": false, 
+      body: JSON.stringify({
+        id: taskId,
+        title: taskTitle,
+        description: taskDesc,
+        completed: false,
       }), // Toggle task completed or not
     }).catch((error) => console.log(error)); // Catch error only fetch failure
 
