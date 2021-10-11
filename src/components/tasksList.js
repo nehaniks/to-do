@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Task from "./task";
 
 // Material UI component
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Functional component to fetch and display all tasks
-export default function TasksList() {
+export default function TasksList(props) {
   const [tasks, setTasks] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +27,9 @@ export default function TasksList() {
       .then((data) => {
         setTasks(data);
         setLoading(false);
+
+        // Set task id for new task
+        props.getId(tasks[tasks.length - 1].id + 1);
       }) // Set state hook to json data
       .catch((error) => {
         console.log(error);
@@ -37,7 +40,7 @@ export default function TasksList() {
   // Effect hook to make fetch request only once by keeping dependency array empty
   useEffect(() => {
     renderTasks();
-  }, []);
+  }, [props.refresh]);
 
   return (
     <div>

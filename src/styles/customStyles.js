@@ -27,6 +27,7 @@ export const containerStyle = {
 // Add Button style
 export const fabStyle = {
   position: "absolute",
+  "z-index": 10,
   top: 60,
   right: 40,
   color: theme.palette.secondary.contrastText,
